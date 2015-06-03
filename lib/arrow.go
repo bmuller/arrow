@@ -1,3 +1,8 @@
+/*
+Package arrow provides C-style date formating and parsing, along with other date goodies.
+
+See the github project page at http://github.com/bmuller/arrow for more info.
+*/
 package arrow
 
 import (
