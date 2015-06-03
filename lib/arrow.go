@@ -39,8 +39,24 @@ func Now() Arrow {
 	return New(time.Now())
 }
 
+func Yesterday() Arrow {
+	return Now().Yesterday()
+}
+
+func Tomorrow() Arrow {
+	return Now().Tomorrow()
+}
+
+func (a Arrow) Yesterday() Arrow {
+	return a.AddDays(-1)
+}
+
+func (a Arrow) Tomorrow() Arrow {
+	return a.AddDays(1)
+}
+
 func (a Arrow) UTC() Arrow {
-	return Arrow{a.Time.UTC()}
+	return New(a.Time.UTC())
 }
 
 func (a Arrow) Sub(b Arrow) time.Duration {
@@ -50,41 +66,41 @@ func (a Arrow) Sub(b Arrow) time.Duration {
 // Add any duration parseable by time.ParseDuration
 func (a Arrow) AddDuration(duration string) Arrow {
 	if pduration, err := time.ParseDuration(duration); err == nil {
-		return Arrow{a.Add(pduration)}
+		return New(a.Add(pduration))
 	}
 	return a
 }
 
 func (a Arrow) AddDays(days int) Arrow {
-	return Arrow{a.AddDate(0, 0, days)}
+	return New(a.AddDate(0, 0, days))
 }
 
 func (a Arrow) AtBeginningOfMinute() Arrow {
-	return Arrow{a.Truncate(Minute)}
+	return New(a.Truncate(Minute))
 }
 
 func (a Arrow) AtBeginningOfHour() Arrow {
-	return Arrow{a.Truncate(Hour)}
+	return New(a.Truncate(Hour))
 }
 
 func (a Arrow) AtBeginningOfDay() Arrow {
 	d := time.Duration(-a.Hour()) * Hour
-	return Arrow{a.AtBeginningOfHour().Add(d)}
+	return New(a.AtBeginningOfHour().Add(d))
 }
 
 func (a Arrow) AtBeginningOfWeek() Arrow {
 	days := time.Duration(-1*int(a.Weekday())) * Day
-	return Arrow{a.AtBeginningOfDay().Add(days)}
+	return New(a.AtBeginningOfDay().Add(days))
 }
 
 func (a Arrow) AtBeginningOfMonth() Arrow {
 	days := time.Duration(-1*int(a.Day())+1) * Day
-	return Arrow{a.AtBeginningOfDay().Add(days)}
+	return New(a.AtBeginningOfDay().Add(days))
 }
 
 func (a Arrow) AtBeginningOfYear() Arrow {
 	days := time.Duration(-1*int(a.YearDay())+1) * Day
-	return Arrow{a.AtBeginningOfDay().Add(days)}
+	return New(a.AtBeginningOfDay().Add(days))
 }
 
 // Add any durations parseable by time.ParseDuration
@@ -151,16 +167,23 @@ func formatConvert(format string) string {
 	return format
 }
 
+// Parse the time using the same format string types as strftime
+// See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
 func CParse(layout, value string) (Arrow, error) {
 	t, e := time.Parse(formatConvert(layout), value)
-	return Arrow{t}, e
+	return New(t), e
 }
 
+// Parse the time using the same format string types as strftime,
+// within the given location.
+// See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
 func CParseInLocation(layout, value string, loc *time.Location) (Arrow, error) {
 	t, e := time.ParseInLocation(formatConvert(layout), value, loc)
-	return Arrow{t}, e
+	return New(t), e
 }
 
+// Format the time using the same format string types as strftime.
+// See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
 func (a Arrow) CFormat(format string) string {
 	format = a.Format(formatConvert(format))
 
