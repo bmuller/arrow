@@ -10,7 +10,7 @@ Time flies like an arrow; fruit flies like a banana.
 ```
 
 # Sprintf Compatability
-The problem with formatting times in Golang is that the [format string you give](http://golang.org/pkg/time/#Time.Format) is based on re-formatting a single date that is a pain to remember (I know it's 1/2 3:04:05 2006 -0700, but...come on).  Most languages based on C (Python, etc) use a string formatting based on [sprintf](http://man7.org/linux/man-pages/man3/strftime.3.html), which is what I think most people are familiar with.
+The problem with formatting times in Golang is that the [format string you give](http://golang.org/pkg/time/#Time.Format) is based on re-formatting a single date that is a pain to remember (I know it's 1/2 3:04:05 2006 -0700, but [I'm lazy](http://threevirtues.com/)).  Most languages based on C (Python, etc) use a string formatting based on [sprintf](http://man7.org/linux/man-pages/man3/strftime.3.html), which is what I think most people are familiar with.
 
 So here's `sprintf` compatability for Golang with `CFormat` and `CParse`:
 
