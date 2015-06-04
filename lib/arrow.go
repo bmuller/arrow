@@ -75,6 +75,27 @@ func (a Arrow) AddDays(days int) Arrow {
 	return New(a.AddDate(0, 0, days))
 }
 
+func (a Arrow) AddHours(hours int) Arrow {
+	year, month, day := a.Time.Date()
+	hour, min, sec := a.Time.Clock()
+	d := time.Date(year, month, day, hour+hours, min, sec, a.Nanosecond(), a.Location())
+	return New(d)
+}
+
+func (a Arrow) AddMinutes(minutes int) Arrow {
+	year, month, day := a.Time.Date()
+	hour, min, sec := a.Time.Clock()
+	d := time.Date(year, month, day, hour, min+minutes, sec, a.Nanosecond(), a.Location())
+	return New(d)
+}
+
+func (a Arrow) AddSeconds(seconds int) Arrow {
+	year, month, day := a.Time.Date()
+	hour, min, sec := a.Time.Clock()
+	d := time.Date(year, month, day, hour, min, sec+seconds, a.Nanosecond(), a.Location())
+	return New(d)
+}
+
 func (a Arrow) AtBeginningOfMinute() Arrow {
 	return New(a.Truncate(Minute))
 }
