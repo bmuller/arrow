@@ -125,7 +125,7 @@ func (a Arrow) AtBeginningOfYear() Arrow {
 }
 
 // Add any durations parseable by time.ParseDuration
-func (a Arrow) AddDurations(durations []string) Arrow {
+func (a Arrow) AddDurations(durations ...string) Arrow {
 	for _, duration := range durations {
 		a = a.AddDuration(duration)
 	}
