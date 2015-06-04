@@ -53,5 +53,8 @@ func main() {
 
      dayutc := arrow.UTC().Yesterday().CFormat("%Y-%m-%d %H:%M")
      fmt.Println("Yesterday, UTC: ", dayutc)
+
+     newyork := arrow.InTimezone("America/New_York").CFormat("%H:%M:%s")
+     fmt.Println("Time in New York: ", newyork)
 }
 ```

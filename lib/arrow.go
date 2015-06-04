@@ -47,6 +47,14 @@ func Tomorrow() Arrow {
 	return Now().Tomorrow()
 }
 
+// Get the current time in the given timezone.
+// The timezone parameter should correspond to a file in the IANA Time Zone database,
+// such as "America/New_York".  "UTC" and "Local" are also acceptable.  If the timezone
+// given isn't valid, then no change to the timezone is made.
+func InTimezone(timezone string) Arrow {
+	return Now().InTimezone(timezone)
+}
+
 func (a Arrow) Yesterday() Arrow {
 	return a.AddDays(-1)
 }
@@ -67,6 +75,16 @@ func (a Arrow) Sub(b Arrow) time.Duration {
 func (a Arrow) AddDuration(duration string) Arrow {
 	if pduration, err := time.ParseDuration(duration); err == nil {
 		return New(a.Add(pduration))
+	}
+	return a
+}
+
+// The timezone parameter should correspond to a file in the IANA Time Zone database,
+// such as "America/New_York".  "UTC" and "Local" are also acceptable.  If the timezone
+// given isn't valid, then no change to the timezone is made.
+func (a Arrow) InTimezone(timezone string) Arrow {
+	if location, err := time.LoadLocation(timezone); err == nil {
+		return New(a.In(location))
 	}
 	return a
 }
