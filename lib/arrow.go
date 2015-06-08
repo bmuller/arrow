@@ -47,6 +47,22 @@ func Tomorrow() Arrow {
 	return Now().Tomorrow()
 }
 
+func NextMinute() Arrow {
+	return Now().AddMinutes(1).AtBeginningOfMinute()
+}
+
+func NextHour() Arrow {
+	return Now().AddHours(1).AtBeginningOfHour()
+}
+
+func NextDay() Arrow {
+	return Now().AddDays(1).AtBeginningOfDay()
+}
+
+func SleepUntil(t Arrow) {
+	time.Sleep(t.Sub(Now()))
+}
+
 // Get the current time in the given timezone.
 // The timezone parameter should correspond to a file in the IANA Time Zone database,
 // such as "America/New_York".  "UTC" and "Local" are also acceptable.  If the timezone

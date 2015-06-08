@@ -45,7 +45,18 @@ func main() {
 }
 ```
 
+You can also more easily sleep until specific times:
+
+```go
+func main() {
+     // sleep until the next minute starts
+     arrow.SleepUntil(arrow.NextMinute())
+     fmt.Println(arrow.Now().CFormat("%H:%M:%S"))
+}
+```
+
 There are also helpers to get today, yesterday, and UTC times:
+
 ```go
 func main() {
      day := arrow.Yesterday().CFormat("%Y-%m-%d")
