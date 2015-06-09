@@ -90,9 +90,13 @@ func (a Arrow) Sub(b Arrow) time.Duration {
 // Add any duration parseable by time.ParseDuration
 func (a Arrow) AddDuration(duration string) Arrow {
 	if pduration, err := time.ParseDuration(duration); err == nil {
-		return New(a.Add(pduration))
+		return a.Add(pduration)
 	}
 	return a
+}
+
+func (a Arrow) Add(d time.Duration) Arrow {
+	return New(a.Time.Add(d))
 }
 
 // The timezone parameter should correspond to a file in the IANA Time Zone database,
@@ -140,22 +144,22 @@ func (a Arrow) AtBeginningOfHour() Arrow {
 
 func (a Arrow) AtBeginningOfDay() Arrow {
 	d := time.Duration(-a.Hour()) * Hour
-	return New(a.AtBeginningOfHour().Add(d))
+	return a.AtBeginningOfHour().Add(d)
 }
 
 func (a Arrow) AtBeginningOfWeek() Arrow {
 	days := time.Duration(-1*int(a.Weekday())) * Day
-	return New(a.AtBeginningOfDay().Add(days))
+	return a.AtBeginningOfDay().Add(days)
 }
 
 func (a Arrow) AtBeginningOfMonth() Arrow {
 	days := time.Duration(-1*int(a.Day())+1) * Day
-	return New(a.AtBeginningOfDay().Add(days))
+	return a.AtBeginningOfDay().Add(days)
 }
 
 func (a Arrow) AtBeginningOfYear() Arrow {
 	days := time.Duration(-1*int(a.YearDay())+1) * Day
-	return New(a.AtBeginningOfDay().Add(days))
+	return a.AtBeginningOfDay().Add(days)
 }
 
 // Add any durations parseable by time.ParseDuration
