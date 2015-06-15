@@ -36,47 +36,39 @@ func main() {
 You can also utilize helpful functions to get things like the beginning of the minute, hour, day, week, month, and year.
 
 ```go
-func main() {
-     day := arrow.Now().AtBeginningOfWeek().CFormat("%Y-%m-%d")
-     fmt.Println("First day of week: ", day)
+day := arrow.Now().AtBeginningOfWeek().CFormat("%Y-%m-%d")
+fmt.Println("First day of week: ", day)
 
-     hour := arrow.Now().AtBeginningOfHour().CFormat("%Y-%m-%d %H:%M")
-     fmt.Println("First second of hour: ", hour)
-}
+hour := arrow.Now().AtBeginningOfHour().CFormat("%Y-%m-%d %H:%M")
+fmt.Println("First second of hour: ", hour)
 ```
 
 You can also more easily sleep until specific times:
 
 ```go
-func main() {
-     // sleep until the next minute starts
-     arrow.SleepUntil(arrow.NextMinute())
-     fmt.Println(arrow.Now().CFormat("%H:%M:%S"))
-}
+// sleep until the next minute starts
+arrow.SleepUntil(arrow.NextMinute())
+fmt.Println(arrow.Now().CFormat("%H:%M:%S"))
 ```
 
 There are also helpers to get today, yesterday, and UTC times:
 
 ```go
-func main() {
-     day := arrow.Yesterday().CFormat("%Y-%m-%d")
-     fmt.Println("Yesterday: ", day)
+day := arrow.Yesterday().CFormat("%Y-%m-%d")
+fmt.Println("Yesterday: ", day)
 
-     dayutc := arrow.UTC().Yesterday().CFormat("%Y-%m-%d %H:%M")
-     fmt.Println("Yesterday, UTC: ", dayutc)
+dayutc := arrow.UTC().Yesterday().CFormat("%Y-%m-%d %H:%M")
+fmt.Println("Yesterday, UTC: ", dayutc)
 
-     newyork := arrow.InTimezone("America/New_York").CFormat("%H:%M:%s")
-     fmt.Println("Time in New York: ", newyork)
-}
+newyork := arrow.InTimezone("America/New_York").CFormat("%H:%M:%s")
+fmt.Println("Time in New York: ", newyork)
 ```
 
 And for generating ranges when you need to interate:
 
 ```go
-func main() {
-     // Print every minute from now until 24 hours from now
-     for _, a := range arrow.Now().UpTo(arrow.Tomorrow(), arrow.Minute) {
-          fmt.Println(a.CFormat("%Y-%m-%d %H:%M:%S"))
-     }
+// Print every minute from now until 24 hours from now
+for _, a := range arrow.Now().UpTo(arrow.Tomorrow(), arrow.Minute) {
+     fmt.Println(a.CFormat("%Y-%m-%d %H:%M:%S"))
 }
 ```
