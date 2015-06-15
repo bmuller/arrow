@@ -71,6 +71,34 @@ func InTimezone(timezone string) Arrow {
 	return Now().InTimezone(timezone)
 }
 
+func (a Arrow) Before(b Arrow) bool {
+	return a.Time.Before(b.Time)
+}
+
+func (a Arrow) After(b Arrow) bool {
+	return a.Time.After(b.Time)
+}
+
+func (a Arrow) Equal(b Arrow) bool {
+	return a.Time.Equal(b.Time)
+}
+
+// Return an array of Arrow's from this one up to the given one,
+// by duration.  For instance, Now().UpTo(Tomorrow(), Hour)
+// will return an array of Arrow's from now until tomorrow by
+// hour (inclusive of a and b).
+func (a Arrow) UpTo(b Arrow, by time.Duration) []Arrow {
+	var result []Arrow
+	if a.After(b) {
+		a, b = b, a
+	}
+	for a.Before(b) || a.Equal(b) {
+		result = append(result, a)
+		a = a.Add(by)
+	}
+	return result
+}
+
 func (a Arrow) Yesterday() Arrow {
 	return a.AddDays(-1)
 }
