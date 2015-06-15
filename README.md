@@ -69,3 +69,14 @@ func main() {
      fmt.Println("Time in New York: ", newyork)
 }
 ```
+
+And for generating ranges when you need to interate:
+
+```go
+func main() {
+     // Print every minute from now until 24 hours from now
+     for _, a := range arrow.Now().UpTo(arrow.Tomorrow(), arrow.Minute) {
+          fmt.Println(a.CFormat("%Y-%m-%d %H:%M:%S"))
+     }
+}
+```
