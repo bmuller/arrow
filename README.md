@@ -28,7 +28,8 @@ func main() {
      fmt.Println("Current date: ", arrow.Now().CFormat("%Y-%m-%d %H:%M"))
 
      // parsing
-     fmt.Println("Some other date: ", arrow.CParse("%Y-%m-%d", "2015-06-03"))
+     parsed, _ := arrow.CParse("%Y-%m-%d", "2015-06-03")
+     fmt.Println("Some other date: ", parsed)
 }
 ```
 
