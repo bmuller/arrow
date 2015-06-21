@@ -65,7 +65,7 @@ newyork := arrow.InTimezone("America/New_York").CFormat("%H:%M:%s")
 fmt.Println("Time in New York: ", newyork)
 ```
 
-And for generating ranges when you need to interate:
+And for generating ranges when you need to iterate:
 
 ```go
 // Print every minute from now until 24 hours from now
