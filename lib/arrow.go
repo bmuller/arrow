@@ -35,6 +35,10 @@ func UTC() Arrow {
 	return New(time.Now().UTC())
 }
 
+func Unix(sec int64, nsec int64) Arrow {
+	return New(time.Unix(sec, nsec))
+}
+
 func Now() Arrow {
 	return New(time.Now())
 }
