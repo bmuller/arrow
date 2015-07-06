@@ -273,6 +273,17 @@ func CParseInLocation(layout, value string, loc *time.Location) (Arrow, error) {
 	return New(t), e
 }
 
+// Parse the time using the same format string types as strftime,
+// within the given location (string value for timezone).
+// See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
+func CParseInStringLocation(layout, value, timezone string) (Arrow, error) {
+	if location, err := time.LoadLocation(timezone); err == nil {
+		return CParseInLocation(layout, value, location)
+	} else {
+		return New(time.Time{}), err
+	}
+}
+
 // Format the time using the same format string types as strftime.
 // See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
 func (a Arrow) CFormat(format string) string {
