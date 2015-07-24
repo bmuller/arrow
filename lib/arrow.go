@@ -51,6 +51,10 @@ func Tomorrow() Arrow {
 	return Now().Tomorrow()
 }
 
+func NextSecond() Arrow {
+	return Now().AddSeconds(1).AtBeginningOfSecond()
+}
+
 func NextMinute() Arrow {
 	return Now().AddMinutes(1).AtBeginningOfMinute()
 }
@@ -164,6 +168,10 @@ func (a Arrow) AddSeconds(seconds int) Arrow {
 	hour, min, sec := a.Time.Clock()
 	d := time.Date(year, month, day, hour, min, sec+seconds, a.Nanosecond(), a.Location())
 	return New(d)
+}
+
+func (a Arrow) AtBeginningOfSecond() Arrow {
+	return New(a.Truncate(Second))
 }
 
 func (a Arrow) AtBeginningOfMinute() Arrow {
