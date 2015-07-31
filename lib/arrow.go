@@ -39,6 +39,10 @@ func Unix(sec int64, nsec int64) Arrow {
 	return New(time.Unix(sec, nsec))
 }
 
+func Epoch() Arrow {
+	return Unix(0, 0)
+}
+
 func Now() Arrow {
 	return New(time.Now())
 }
