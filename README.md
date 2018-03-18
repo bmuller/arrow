@@ -9,7 +9,14 @@ Arrow provides a C style format based parsing in Golang (among other helpful dat
 Time flies like an arrow; fruit flies like a banana.
 ```
 
-# Strftime Compatability
+## Installation
+Go get it:
+
+```bash
+go get github.com/bmuller/arrow/lib
+```
+
+## Strftime Compatability
 The problem with formatting times in Golang is that the [format string you give](http://golang.org/pkg/time/#Time.Format) is based on re-formatting a single date that is a pain to remember (I know it's 1/2 3:04:05 2006 -0700, but [I'm lazy](http://threevirtues.com/)).  Most languages based on C (Python, etc) use a string formatting based on [strftime](http://man7.org/linux/man-pages/man3/strftime.3.html), which is what I think most people are familiar with.
 
 So here's `strftime` compatability for Golang with `CFormat` and `CParse`:
@@ -20,7 +27,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/voxmedia/arrow/lib"
+	"github.com/bmuller/arrow/lib"
 )
 
 func main() {
@@ -33,7 +40,7 @@ func main() {
 }
 ```
 
-# Additional Fun
+## Additional Fun
 You can also utilize helpful functions to get things like the beginning of the minute, hour, day, week, month, and year.
 
 ```go
