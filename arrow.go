@@ -153,6 +153,14 @@ func (a Arrow) AddDays(days int) Arrow {
 	return New(a.AddDate(0, 0, days))
 }
 
+func (a Arrow) AddMonths(months int) Arrow {
+	return New(a.AddDate(0, months, 0))
+}
+
+func (a Arrow) AddYears(years int) Arrow {
+	return New(a.AddDate(years, 0, 0))
+}
+
 func (a Arrow) AddHours(hours int) Arrow {
 	year, month, day := a.Time.Date()
 	hour, min, sec := a.Time.Clock()
