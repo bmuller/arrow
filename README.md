@@ -13,7 +13,7 @@ Time flies like an arrow; fruit flies like a banana.
 Go get it:
 
 ```bash
-go get github.com/bmuller/arrow/lib
+go get github.com/bmuller/arrow
 ```
 
 ## Strftime Compatability
@@ -27,7 +27,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/bmuller/arrow/lib"
+	"github.com/bmuller/arrow"
 )
 
 func main() {
@@ -80,3 +80,13 @@ for _, a := range arrow.Now().UpTo(arrow.Tomorrow(), arrow.Minute) {
      fmt.Println(a.CFormat("%Y-%m-%d %H:%M:%S"))
 }
 ```
+
+## Running Tests
+To run tests:
+
+```
+go test
+```
+
+## Reporting Issues
+Please report all issues [on github](https://github.com/bmuller/arrow/issues).

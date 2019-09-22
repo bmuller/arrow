@@ -1,12 +1,6 @@
 language: go
 go:
-  - "1.10"
-  - tip
-
-install:
-  - go get -v -t ./...
-  - go get -v github.com/onsi/ginkgo
-  - go get -v github.com/onsi/gomega
-  - go install -v github.com/onsi/ginkgo/ginkgo
-
-script: PATH=$HOME/gopath/bin:$PATH ginkgo -r --randomizeAllSpecs --failOnPending --skipMeasurements --trace --race
+  - 1.10
+  - 1.11
+  - 1.12
+  - 1.13
