@@ -27,7 +27,58 @@ const (
 	Week                      = 7 * Day
 )
 
+var strftimeMapping map[string]string
+
 func New(t time.Time) Arrow {
+	// create mapping from strftime to time in Go for once
+	if strftimeMapping == nil {
+		strftimeMapping = map[string]string{
+			"%a": "Mon",
+			"%A": "Monday",
+			"%b": "Jan",
+			"%B": "January",
+			"%c": "", // locale not supported
+			"%C": "06",
+			"%d": "02",
+			"%D": "01/02/06",
+			"%e": "_2",
+			"%E": "", // modifiers not supported
+			"%F": "2006-01-02",
+			"%G": "%G", // special case, see below
+			"%g": "%g", // special case, see below
+			"%h": "Jan",
+			"%H": "15",
+			"%I": "03",
+			"%j": "%j", // special case, see below
+			"%k": "%k", // special case, see below
+			"%l": "_3",
+			"%m": "01",
+			"%M": "04",
+			"%n": "\n",
+			"%O": "", // modifiers not supported
+			"%p": "PM",
+			"%P": "pm",
+			"%r": "03:04:05 PM",
+			"%R": "15:04",
+			"%s": "%s", // special case, see below
+			"%S": "05",
+			"%t": "\t",
+			"%T": "15:04:05",
+			"%u": "%u", // special case, see below
+			"%U": "%U", // special case, see below
+			"%V": "%V", // special case, see below
+			"%w": "%w", // special case, see below
+			"%W": "%W", // special case, see below
+			"%x": "%x", // locale not supported
+			"%X": "%X", // locale not supported
+			"%y": "06",
+			"%Y": "2006",
+			"%z": "-0700",
+			"%Z": "MST",
+			"%+": "Mon Jan _2 15:04:05 MST 2006",
+			"%%": "%%", // special case, see below
+		}
+	}
 	return Arrow{t}
 }
 
@@ -223,54 +274,6 @@ func (a Arrow) AddDurations(durations ...string) Arrow {
 }
 
 func formatConvert(format string) string {
-	// create mapping from strftime to time in Go
-	strftimeMapping := map[string]string{
-		"%a": "Mon",
-		"%A": "Monday",
-		"%b": "Jan",
-		"%B": "January",
-		"%c": "", // locale not supported
-		"%C": "06",
-		"%d": "02",
-		"%D": "01/02/06",
-		"%e": "_2",
-		"%E": "", // modifiers not supported
-		"%F": "2006-01-02",
-		"%G": "%G", // special case, see below
-		"%g": "%g", // special case, see below
-		"%h": "Jan",
-		"%H": "15",
-		"%I": "03",
-		"%j": "%j", // special case, see below
-		"%k": "%k", // special case, see below
-		"%l": "_3",
-		"%m": "01",
-		"%M": "04",
-		"%n": "\n",
-		"%O": "", // modifiers not supported
-		"%p": "PM",
-		"%P": "pm",
-		"%r": "03:04:05 PM",
-		"%R": "15:04",
-		"%s": "%s", // special case, see below
-		"%S": "05",
-		"%t": "\t",
-		"%T": "15:04:05",
-		"%u": "%u", // special case, see below
-		"%U": "%U", // special case, see below
-		"%V": "%V", // special case, see below
-		"%w": "%w", // special case, see below
-		"%W": "%W", // special case, see below
-		"%x": "%x", // locale not supported
-		"%X": "%X", // locale not supported
-		"%y": "06",
-		"%Y": "2006",
-		"%z": "-0700",
-		"%Z": "MST",
-		"%+": "Mon Jan _2 15:04:05 MST 2006",
-		"%%": "%%", // special case, see below
-	}
-
 	for fmt, conv := range strftimeMapping {
 		format = strings.Replace(format, fmt, conv, -1)
 	}
