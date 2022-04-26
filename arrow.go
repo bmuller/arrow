@@ -240,7 +240,7 @@ func formatConvert(format string) string {
 		"%G":  "%G", // special case, see below
 		"%g":  "%g", // special case, see below
 		"%h":  "Jan",
-		"%H":  "15",  // this actually means the hour can never be formatted as non-zero padded...
+		"%H":  "15",
 		"%-H": "%-H", // special case, see below
 		"%I":  "03",
 		"%-I": "3",
