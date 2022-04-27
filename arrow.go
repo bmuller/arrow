@@ -287,15 +287,22 @@ func formatConvert(format string) string {
 // Parse the time using the same format string types as strftime
 // See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
 func CParse(layout, value string) (Arrow, error) {
-	t, e := time.Parse(formatConvert(layout), value)
-	return New(t), e
+	return CParseInLocation(layout, value, nil)
 }
 
 // Parse the time using the same format string types as strftime,
 // within the given location.
 // See http://man7.org/linux/man-pages/man3/strftime.3.html for more info.
 func CParseInLocation(layout, value string, loc *time.Location) (Arrow, error) {
-	t, e := time.ParseInLocation(formatConvert(layout), value, loc)
+	parseFunc := func(layout string, value string, loc *time.Location) (time.Time, error) {
+		if loc == nil {
+			return time.Parse(layout, value)
+		} else {
+			return time.ParseInLocation(layout, value, loc)
+		}
+	}
+	layout = strings.Replace(layout, "%-H", "%H", -1)
+	t, e := parseFunc(formatConvert(layout), value, loc)
 	return New(t), e
 }
 
