@@ -1,7 +1,7 @@
 # Arrow: Go Date Parsing
 
+![Build Status](https://github.com/bmuller/arrow/workflows/ci/badge.svg)
 [![GoDoc](https://godoc.org/github.com/bmuller/arrow?status.png)](https://pkg.go.dev/github.com/bmuller/arrow)
-[![Build Status](https://travis-ci.org/bmuller/arrow.png?branch=master)](https://travis-ci.org/bmuller/arrow)
 
 Arrow provides a C style format based parsing in Golang (among other helpful date/time functions).
 
